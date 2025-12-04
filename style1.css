@@ -1,0 +1,101 @@
+   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      overflow: hidden;
+      background: linear-gradient(270deg, #090f19, #0b2747, #051e4d, #041636);
+      background-size: 800% 800%;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    h1, h2, p, a {
+      margin: 10px;
+      opacity: 0;
+    }
+
+    h1 {
+      font-size: 3em;
+      animation: slideInLeft 1.2s ease forwards;
+    }
+
+    h2 {
+      font-size: 2em;
+      color: #00eaff;
+      animation: slideInTop 1.2s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #e0e0e0;
+      animation: slideInBottom 1.2s ease forwards;
+      animation-delay: 0.6s;
+    }
+
+    a {
+      text-decoration: none;
+      background: #00eaff;
+      color: #0a192f;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: bold;
+      animation: slideInRight 1.2s ease forwards;
+      animation-delay: 0.9s;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 234, 255, 0.6);
+    }
+
+    a:hover {
+      background: #00bcd4;
+      box-shadow: 0 0 20px rgba(0, 234, 255, 0.9);
+      transform: scale(1.05);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      color: #bbb;
+      font-size: 0.9em;
+      animation: fadeIn 1.5s ease forwards;
+      animation-delay: 1.3s;
+      opacity: 0;
+    }
+
+    /* 🌌 Keyframes for text */
+    @keyframes slideInLeft {
+      0% { transform: translateX(-100%); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+      0% { transform: translateX(100%); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInTop {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideInBottom {
+      0% { transform: translateY(100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* 🌈 Animated background gradient */
+    @keyframes gradientShift {
+      70% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
