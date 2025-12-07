@@ -1,29 +1,30 @@
 <?php
-session_start();
+// REMOVED: session_start();
 require __DIR__ . '/alegend.php';
 
-$error = ''; //ده variable هستخدمه في line 54
-$registered = isset($_GET['registered']); // ده variable هستخدمه في line 50
+$error = ''; 
+$registered = isset($_GET['registered']); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? ''); // بياخد ال email و بيتريم ال spaces
+    $email = trim($_POST['email'] ?? ''); 
     $password = $_POST['password'] ?? '';
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {// check valid email and pass
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
         $error = 'Please enter email and password.';
     } else {
-        $stmt = $conn->prepare('SELECT id, fullname, password FROM users WHERE email = ? LIMIT 1');
+        // Updated to select 'is_admin' column for the check in Booking.php
+        $stmt = $conn->prepare('SELECT id, fullname, password, is_admin FROM users WHERE email = ? LIMIT 1');
         $stmt->bind_param('s', $email);
         $stmt->execute();
-        $stmt->store_result();// database queries
-        if ($stmt->num_rows === 1) { //لو فيه واحد عنده الايميل ده كمل
-            $stmt->bind_result( $id, $fullname, $hash);// hashing
+        $stmt->store_result();
+        if ($stmt->num_rows === 1) { 
+            $stmt->bind_result( $id, $fullname, $hash, $is_admin);
             $stmt->fetch();
-            if (password_verify($password, $hash)) {//comparing the original with the entered
+            if (password_verify($password, $hash)) {
                 session_regenerate_id(true);
                 $_SESSION['user_id'] = $id;
                 $_SESSION['fullname'] = $fullname;
-                // success message page or redirect
+                // Since 'is_admin' is now selected, it will work with the check in alegend.php
                 header('Location: Booking.php?login=success');
                 exit;
             } else {
@@ -61,10 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <button type="submit">Login</button>
     </form>
 
-    <p class="muted">Don't have an account? <a href="register.php">Register</a></p>
-    <footer> © 2025 THE MN'S | All Rights Reserved </footer>
+    <p class="muted">Don't have an account? <a href="register.php" style="color:#cfefff">Sign Up</a></p>
+    <footer>© 2025 THE MN'S | All Rights Reserved</footer>
   </div>
-
-  
 </body>
 </html>
